@@ -1,0 +1,31 @@
+{
+    "name": "jetbox/laravel-permission",
+    "description": "Laravel Permission Package",
+    "keywords": [
+        "laravel",
+        "permission",
+        "role"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Davit Mnacakanyan",
+            "email": "davitmnacakanyan055@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "JetBox\\Permission\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JetBox\\Permission\\PermissionServiceProvider"
+            ]
+        }
+    }
+}
