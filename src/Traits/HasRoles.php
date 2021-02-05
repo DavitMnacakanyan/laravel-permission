@@ -13,7 +13,13 @@ trait HasRoles
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        return $this->morphToMany(
+            config('permissions.models.role_model'),
+            config('permissions.columns.morphs'),
+            config('permissions.tables.model_has_roles'),
+            config('permissions.columns.morph_key'),
+            config('permissions.columns.role_id')
+        )->withTimestamps();
     }
 
     /**
@@ -22,7 +28,7 @@ trait HasRoles
     public function assignRole($role)
     {
         if (is_string($role)) {
-            $role = Role::whereName($role)->findOrFail();
+            $role = Role::whereName($role)->firstOrFail();
         }
 
         $this->roles()->sync($role, false);
@@ -34,7 +40,7 @@ trait HasRoles
     public function detachRole($role)
     {
         if (is_string($role)) {
-            $role = Role::whereName($role)->findOrFail();
+            $role = Role::whereName($role)->firstOrFail();
         }
 
         $this->roles()->detach($role);

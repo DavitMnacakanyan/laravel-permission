@@ -26,7 +26,13 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->morphedByMany(
+            config('permissions.models.role_model'),
+            config('permissions.columns.morphs'),
+            config('permissions.tables.model_has_roles'),
+            config('permissions.columns.morph_key'),
+            config('permissions.columns.role_id')
+        )->withTimestamps();
     }
 
     /**
@@ -35,7 +41,7 @@ class Role extends Model
     public function syncPermissions($permission)
     {
         if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->findOrFail();
+            $permission = Permission::whereName($permission)->firstOrFail();
         }
 
         $this->permissions()->sync($permission, false);
@@ -47,7 +53,7 @@ class Role extends Model
     public function detachPermissions($permission)
     {
         if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->findOrFail();
+            $permission = Permission::whereName($permission)->firstOrFail();
         }
 
         $this->permissions()->detach($permission);
@@ -59,5 +65,14 @@ class Role extends Model
     public function getPermissionNames()
     {
         return $this->permissions->flatten()->pluck('name')->unique();
+    }
+
+    public function hasPermissions($permission): bool
+    {
+        if (is_string($permission)) {
+            $permission = Permission::whereName($permission)->firstOrFail();
+        }
+
+        return $this->getPermissionNames()->contains($permission->name);
     }
 }

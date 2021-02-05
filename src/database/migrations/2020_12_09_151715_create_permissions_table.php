@@ -14,7 +14,7 @@ class CreatePermissionsTable extends Migration
     public function up()
     {
         // permissions
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create(config('permissions.tables.permissions'), function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
@@ -26,7 +26,7 @@ class CreatePermissionsTable extends Migration
         });
 
         // roles
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create(config('permissions.tables.roles'), function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
@@ -38,35 +38,39 @@ class CreatePermissionsTable extends Migration
         });
 
         // permission_role
-        Schema::create('permission_role', function (Blueprint $table) {
+        Schema::create(config('permissions.tables.permission_role'), function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('permission_id')
-                ->constrained('permissions')
+                ->constrained(config('permissions.tables.permissions'))
                 ->cascadeOnDelete();
 
-            $table->foreignId('role_id')
-                ->constrained('roles')
+            $table->foreignId(config('permissions.columns.role_id'))
+                ->constrained(config('permissions.tables.roles'))
                 ->cascadeOnDelete();
 
-            $table->unique(['permission_id', 'role_id']);
+            $table->unique([
+                config('permissions.columns.permission_id'),
+                config('permissions.columns.role_id')
+            ]);
 
             $table->timestamps();
         });
 
         // role_user
-        Schema::create('role_user', function (Blueprint $table) {
+        Schema::create(config('permissions.tables.model_has_roles'), function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('role_id')
-                ->constrained('roles')
+            $table->foreignId(config('permissions.columns.role_id'))
+                ->constrained(config('permissions.tables.roles'))
                 ->cascadeOnDelete();
 
-            $table->foreignId('user_id')
-                ->constrained('users')
-                ->cascadeOnDelete();
+            $table->morphs(config('permissions.columns.morphs'));
 
-            $table->unique(['role_id', 'user_id']);
+            $table->unique([
+                config('permissions.columns.role_id'),
+                config('permissions.columns.morph_key')
+            ]);
 
             $table->timestamps();
         });
@@ -79,9 +83,9 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
-        Schema::dropIfExists('roles');
-        Schema::dropIfExists('permission_role');
-        Schema::dropIfExists('role_user');
+        Schema::dropIfExists(config('permissions.tables.permissions'));
+        Schema::dropIfExists(config('permissions.tables.roles'));
+        Schema::dropIfExists(config('permissions.tables.permission_role'));
+        Schema::dropIfExists(config('permissions.tables.model_has_roles'));
     }
 }
