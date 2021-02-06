@@ -7,15 +7,13 @@ Laravel Permission Package
 [![Latest Unstable Version](https://poser.pugx.org/jetbox/laravel-permission/v/unstable)](//packagist.org/packages/jetbox/laravel-permission)
 [![License](https://poser.pugx.org/jetbox/laravel-permission/license)](//packagist.org/packages/jetbox/laravel-permission)
 
-
-[![Daily Downloads](https://poser.pugx.org/DavitMnacakanyan/laravel-permission/d/daily)](//packagist.org/packages/jetbox/laravel-permission)
-[![Monthly Downloads](https://poser.pugx.org/DavitMnacakanyan/laravel-permission/d/monthly)](//packagist.org/packages/jetbox/laravel-permission)
-[![Total Downloads](https://poser.pugx.org/DavitMnacakanyan/laravel-permission/downloads)](//packagist.org/packages/jetbox/laravel-permission)
+[comment]: <> ([![Daily Downloads]&#40;https://poser.pugx.org/jetbox/laravel-permission/d/daily&#41;]&#40;//packagist.org/packages/jetbox/laravel-permission&#41;)
+[comment]: <> ([![Monthly Downloads]&#40;https://poser.pugx.org/jetbox/laravel-permission/d/monthly&#41;]&#40;//packagist.org/packages/jetbox/laravel-permission&#41;)
+[comment]: <> ([![Total Downloads]&#40;https://poser.pugx.org/jetbox/laravel-permission/downloads&#41;]&#40;//packagist.org/packages/jetbox/laravel-permission&#41;)
 
 [![Issues](https://img.shields.io/github/issues/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/laravel-permission/issues)
 [![Stars](https://img.shields.io/github/stars/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/laravel-permission/stargazers)
 [![Forks](https://img.shields.io/github/forks/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/laravel-permission/network/members)
-
 
 ## Table of Contents
 
@@ -42,6 +40,7 @@ composer require jetbox/laravel-permission
 
 - syncPermissions($permission)
 - detachPermissions($permission)
+- hasPermissions($permission): bool
 - assignRole($role)
 - detachRole($role)
 - getPermissionNames()
