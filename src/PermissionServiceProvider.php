@@ -4,6 +4,7 @@ namespace JetBox\Permission;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use JetBox\Permission\Console\Commands\InstallCommand;
 
 class PermissionServiceProvider extends ServiceProvider
 {
@@ -41,14 +42,20 @@ class PermissionServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__ . '/database/migrations' => database_path('migrations')
+            __DIR__ . '/../database/migrations' => database_path('migrations')
         ], 'permission-migrations');
 
         $this->publishes([
-            __DIR__ . '/config/permissions' => config_path('config')
+            __DIR__ . '/../config/permissions.php' => config_path('permissions.php')
         ], 'permission-config');
 
-        $this->loadMigrationsFrom(__DIR__ . 'database/migrations');
-        $this->loadMigrationsFrom(__DIR__. 'config/permissions.php');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->mergeConfigFrom(__DIR__ . '/../config/permissions.php', 'permissions');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallCommand::class
+            ]);
+        }
     }
 }

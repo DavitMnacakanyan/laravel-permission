@@ -41,7 +41,7 @@ class CreatePermissionsTable extends Migration
         Schema::create(config('permissions.tables.permission_role'), function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('permission_id')
+            $table->foreignId(config('permissions.columns.permission_id'))
                 ->constrained(config('permissions.tables.permissions'))
                 ->cascadeOnDelete();
 

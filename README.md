@@ -34,6 +34,11 @@ Execute the following command to get the latest version of the package:
 composer require jetbox/laravel-permission
 ```
 
+### Permission
+```terminal
+php artisan permission:install
+```
+
 ## Methods
 
 ### Role and Permission
@@ -81,11 +86,11 @@ $user->assignRole('admin');
 @hasRole('admin')
      Admin
 @endhasRole
-    
+
 @hasAnyRole(['admin', 'moderator', 'writer'])
      Admin
 @endhasAnyRole
-    
+
 @unlessRole('admin')
      Admin
 @endunlessRole
