@@ -93,4 +93,9 @@ trait HasRoles
     {
         return $this->hasRole($roles);
     }
+
+    public function hasPermission($ability): bool
+    {
+        return $this->abilities()->contains($ability);
+    }
 }
