@@ -36,27 +36,16 @@ class Role extends Model
     }
 
     /**
-     * @param $permission
+     * @param $permissions
      */
-    public function syncPermissions($permission)
+    public function syncPermissions($permissions)
     {
-        if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->firstOrFail();
+        if (is_string($permissions)) {
+
+            $permissions = Permission::whereName($permissions)->firstOrFail();
         }
 
-        $this->permissions()->sync($permission, false);
-    }
-
-    /**
-     * @param $permission
-     */
-    public function detachPermissions($permission)
-    {
-        if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->firstOrFail();
-        }
-
-        $this->permissions()->detach($permission);
+        $this->permissions()->sync($permissions);
     }
 
     /**
@@ -67,7 +56,11 @@ class Role extends Model
         return $this->permissions->flatten()->pluck('name')->unique();
     }
 
-    public function hasPermissions($permission): bool
+    /**
+     * @param $permission
+     * @return bool
+     */
+    public function hasPermission($permission): bool
     {
         if (is_string($permission)) {
             $permission = Permission::whereName($permission)->firstOrFail();
