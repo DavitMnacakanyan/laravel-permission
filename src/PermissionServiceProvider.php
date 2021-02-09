@@ -50,7 +50,7 @@ class PermissionServiceProvider extends ServiceProvider
             __DIR__ . '/../config/permissions.php' => config_path('permissions.php')
         ], 'permission-config');
 
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->mergeConfigFrom(__DIR__ . '/../config/permissions.php', 'permissions');
 
         if ($this->app->runningInConsole()) {
