@@ -43,9 +43,8 @@ php artisan permission:install
 
 ### Role and Permission
 
-- syncPermissions($permission)
-- detachPermissions($permission)
-- hasPermissions($permission): bool
+- syncPermissions($permissions)
+- hasPermission($permission): bool
 - assignRole($role)
 - detachRole($role)
 - getPermissionNames()
@@ -70,14 +69,24 @@ class User extends Model {
 }
 ```
 
-### Use methods
-
+### Use Methods
 ```php
 $user = User::firstOrFail();
 $user->assignRole('admin');
+
+$permissions = Permission::all();
+$role = Role::firstOrFail();
+$role->syncPermissions($permissions);
 ```
 
-## directives
+### Use Methods Blade
+```blade
+@can('view_article')
+    Content
+@endcan
+```
+
+## Directives
 ```php
 @role('admin')
      Admin

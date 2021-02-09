@@ -3,6 +3,7 @@
 namespace JetBox\Permission;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use JetBox\Permission\Console\Commands\InstallCommand;
 
@@ -57,5 +58,9 @@ class PermissionServiceProvider extends ServiceProvider
                 InstallCommand::class
             ]);
         }
+
+        Gate::after(function ($user, $ability) {
+            return $user->abilities()->contains($ability);
+        });
     }
 }

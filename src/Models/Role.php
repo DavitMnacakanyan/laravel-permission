@@ -41,7 +41,6 @@ class Role extends Model
     public function syncPermissions($permissions)
     {
         if (is_string($permissions)) {
-
             $permissions = Permission::whereName($permissions)->firstOrFail();
         }
 

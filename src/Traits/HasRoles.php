@@ -31,7 +31,7 @@ trait HasRoles
             $role = Role::whereName($role)->firstOrFail();
         }
 
-        $this->roles()->sync($role, false);
+        $this->roles()->sync($role);
     }
 
     /**
