@@ -9,12 +9,12 @@ return [
         /**
          * Role Model
          */
-        'role_model' => \JetBox\Permission\Models\Role::class,
+        'role' => \JetBox\Permission\Models\Role::class,
 
         /**
          * Permission Model
          */
-        'permission_model' => \JetBox\Permission\Models\Permission::class,
+        'permission' => \JetBox\Permission\Models\Permission::class,
     ],
 
     /**

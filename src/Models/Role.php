@@ -18,7 +18,9 @@ class Role extends Model
      */
     public function permissions()
     {
-        return $this->belongsToMany(Permission::class)->withTimestamps();
+        return $this->belongsToMany(
+            config('permissions.models.permission')
+        )->withTimestamps();
     }
 
     /**
@@ -27,7 +29,7 @@ class Role extends Model
     public function users()
     {
         return $this->morphedByMany(
-            config('permissions.models.role_model'),
+            config('permissions.models.role'),
             config('permissions.columns.morphs'),
             config('permissions.tables.model_has_roles'),
             config('permissions.columns.morph_key'),

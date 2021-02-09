@@ -14,7 +14,7 @@ trait HasRoles
     public function roles()
     {
         return $this->morphToMany(
-            config('permissions.models.role_model'),
+            config('permissions.models.role'),
             config('permissions.columns.morphs'),
             config('permissions.tables.model_has_roles'),
             config('permissions.columns.morph_key'),
