@@ -69,7 +69,7 @@ trait HasRoles
     public function hasRole($roles): bool
     {
         if (is_string($roles)) {
-            $roles = Role::whereName($roles)->firstOrFail();
+            $roles = Role::whereName($roles)->first();
         }
 
         if (is_array($roles)) {
