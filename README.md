@@ -12,8 +12,9 @@ Laravel Permission Package
 [comment]: <> ([![Total Downloads]&#40;https://poser.pugx.org/jetbox/laravel-permission/downloads&#41;]&#40;//packagist.org/packages/jetbox/laravel-permission&#41;)
 
 [![Issues](https://img.shields.io/github/issues/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/laravel-permission/issues)
-[![Stars](https://img.shields.io/github/stars/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/laravel-permission/stargazers)
-[![Forks](https://img.shields.io/github/forks/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/laravel-permission/network/members)
+[![Stars](https://img.shields.io/github/stars/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/JetBox-laravel-permission/stargazers)
+[![Forks](https://img.shields.io/github/forks/DavitMnacakanyan/laravel-permission)](https://github.com/DavitMnacakanyan/JetBox-laravel-permission/network/members)
+
 
 ## Table of Contents
 
