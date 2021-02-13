@@ -42,11 +42,28 @@ class Role extends Model
      */
     public function syncPermissions($permissions)
     {
-        if (is_string($permissions)) {
-            $permissions = Permission::whereName($permissions)->firstOrFail();
+        $permissions = collect($permissions)->flatten();
+        foreach ($permissions as $permission) {
+
+            // 1 | [1, 2, 3]
+            if (is_numeric($permission)) {
+                $ids[] = Permission::whereId($permission)->first()->id;
+            }
+
+            // 'view_article' | ['view_article', 'edit_article]
+            if (is_string($permission)) {
+                $ids[] = Permission::whereName($permission)->first()->id;
+            }
+
+            // instanceof Permission Model
+            if (is_object($permission)) {
+                if ($permission instanceof Permission) {
+                    $ids[] = Permission::whereName($permission->name)->first()->id;
+                }
+            }
         }
 
-        $this->permissions()->sync($permissions);
+        $this->permissions()->sync($ids);
     }
 
     /**
@@ -64,7 +81,7 @@ class Role extends Model
     public function hasPermission($permission): bool
     {
         if (is_string($permission)) {
-            $permission = Permission::whereName($permission)->firstOrFail();
+            $permission = Permission::whereName($permission)->first();
         }
 
         return $this->getPermissionNames()->contains($permission->name);
