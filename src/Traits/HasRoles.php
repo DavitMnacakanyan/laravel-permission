@@ -23,15 +23,33 @@ trait HasRoles
     }
 
     /**
-     * @param $role
+     * @param $roles
      */
-    public function assignRole($role)
+    public function assignRole($roles)
     {
-        if (is_string($role)) {
-            $role = Role::whereName($role)->firstOrFail();
+        $roles = collect($roles)->flatten();
+
+        foreach ($roles as $role) {
+
+            // 1 | [1, 2, 3]
+            if (is_numeric($role)) {
+                $ids[] = Role::whereId($role)->first()->id;
+            }
+
+            // 'view_article' | ['view_article', 'edit_article]
+            if (is_string($role)) {
+                $ids[] = Role::whereName($role)->first()->id;
+            }
+
+            // instanceof Permission Model
+            if (is_object($role)) {
+//                if ($role instanceof Role) {
+                $ids[] = Role::whereName($role->name)->first()->id;
+//                }
+            }
         }
 
-        $this->roles()->sync($role);
+        $this->roles()->sync($ids);
     }
 
     /**
