@@ -27,29 +27,29 @@ trait HasRoles
      */
     public function assignRole($roles)
     {
-        $roles = collect($roles)->flatten();
-
-        foreach ($roles as $role) {
-
-            // 1 | [1, 2, 3]
+        $roles = collect($roles)->flatten()->map(function ($role) {
+            // 1 | [1, 2, 3] | "1"
             if (is_numeric($role)) {
+                $role = intval($role);
                 $ids[] = Role::whereId($role)->first()->id;
             }
 
-            // 'view_article' | ['view_article', 'edit_article]
+            // 'Admin' | ['Admin', 'Manager']
             if (is_string($role)) {
                 $ids[] = Role::whereName($role)->first()->id;
             }
 
             // instanceof Permission Model
             if (is_object($role)) {
-//                if ($role instanceof Role) {
-                $ids[] = Role::whereName($role->name)->first()->id;
-//                }
+                if ($role instanceof Role) {
+                    $ids[] = Role::whereName($role->name)->first()->id;
+                }
             }
-        }
 
-        $this->roles()->sync($ids);
+            return $ids;
+        })->flatten();
+
+        $this->roles()->sync($roles);
     }
 
     /**

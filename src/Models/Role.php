@@ -42,11 +42,10 @@ class Role extends Model
      */
     public function syncPermissions($permissions)
     {
-        $permissions = collect($permissions)->flatten();
-        foreach ($permissions as $permission) {
-
-            // 1 | [1, 2, 3]
+        $permissions = collect($permissions)->flatten()->map(function ($permission) {
+            // 1 | [1, 2, 3] | "1"
             if (is_numeric($permission)) {
+                $permission = intval($permission);
                 $ids[] = Permission::whereId($permission)->first()->id;
             }
 
@@ -61,9 +60,11 @@ class Role extends Model
                     $ids[] = Permission::whereName($permission->name)->first()->id;
                 }
             }
-        }
 
-        $this->permissions()->sync($ids);
+            return $ids;
+        })->flatten();
+
+        $this->permissions()->sync($permissions);
     }
 
     /**
