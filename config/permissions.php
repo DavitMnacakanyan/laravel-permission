@@ -8,12 +8,6 @@ return [
     'models' => [
 
         /**
-         * 'App\User' | 'App\Models\User'
-         * User Model
-         */
-        'user' => 'App\User',
-
-        /**
          * Role Model
          */
         'role' => \JetBox\Permission\Models\Role::class,

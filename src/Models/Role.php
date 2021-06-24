@@ -29,7 +29,7 @@ class Role extends Model
     public function users()
     {
         return $this->morphedByMany(
-            config('permissions.models.user'),
+            config('auth.providers.tasks.model'),
             config('permissions.columns.morphs'),
             config('permissions.tables.model_has_roles'),
             config('permissions.columns.role_id'),
