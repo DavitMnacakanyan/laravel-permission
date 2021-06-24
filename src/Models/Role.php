@@ -29,11 +29,11 @@ class Role extends Model
     public function users()
     {
         return $this->morphedByMany(
-            config('permissions.models.role'),
+            config('permissions.models.user'),
             config('permissions.columns.morphs'),
             config('permissions.tables.model_has_roles'),
-            config('permissions.columns.morph_key'),
-            config('permissions.columns.role_id')
+            config('permissions.columns.role_id'),
+            config('permissions.columns.morph_key')
         )->withTimestamps();
     }
 

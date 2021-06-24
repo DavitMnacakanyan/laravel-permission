@@ -6,6 +6,13 @@ return [
      * Models
      */
     'models' => [
+
+        /**
+         * 'App\User' | 'App\Models\User'
+         * User Model
+         */
+        'user' => 'App\User',
+
         /**
          * Role Model
          */
